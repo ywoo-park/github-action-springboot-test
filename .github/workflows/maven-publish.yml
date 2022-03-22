@@ -56,3 +56,16 @@ jobs:
           --acl private \
           ./springboot-deploy-test.zip s3://ywoo-springboot-deploy-test/
 
+      # Deploy
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws deploy create-deployment \
+          --application-name springboot-deploy-test \
+          --deployment-group-name spring-boot-deploy-group \
+          --file-exists-behavior OVERWRITE \
+          --s3-location bucket=ywoo-springboot-deploy-test,bundleType=zip,key=springboot-deploy-test.zip \
+          --region ap-northeast-2
+
