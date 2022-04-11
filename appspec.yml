@@ -3,3 +3,8 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/app/deploy
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
